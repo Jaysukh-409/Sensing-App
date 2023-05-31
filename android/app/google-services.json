@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "319949057272",
+    "project_id": "sensing-app",
+    "storage_bucket": "sensing-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319949057272:android:ac3145799128e24a3edf0d",
+        "android_client_info": {
+          "package_name": "com.example.sensing_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "319949057272-t2ninal0vasdj0l9tg9v310qi90o5d12.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZmV46JL8sM70skrwK1LIUF0-ua9iUAsQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "319949057272-t2ninal0vasdj0l9tg9v310qi90o5d12.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
