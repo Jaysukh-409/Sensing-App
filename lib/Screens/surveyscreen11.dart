@@ -4,7 +4,8 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:sensing_app/Screens/surveyscreen12.dart';
 
 class Survey11Screen extends StatefulWidget {
-  const Survey11Screen({super.key});
+  List<int> answer;
+  Survey11Screen({required this.answer, super.key});
 
   @override
   State<Survey11Screen> createState() => _Survey11ScreenState();
@@ -89,6 +90,7 @@ class _Survey11ScreenState extends State<Survey11Screen> {
                     option0 = false;
                   } else {
                     option0 = true;
+                    widget.answer[11] = 0;
                     option1 = option2 = option3 = false;
                   }
                 });
@@ -141,6 +143,7 @@ class _Survey11ScreenState extends State<Survey11Screen> {
                     option1 = false;
                   } else {
                     option1 = true;
+                    widget.answer[11] = 1;
                     option0 = option2 = option3 = false;
                   }
                 });
@@ -193,6 +196,7 @@ class _Survey11ScreenState extends State<Survey11Screen> {
                     option2 = false;
                   } else {
                     option2 = true;
+                    widget.answer[11] = 2;
                     option1 = option0 = option3 = false;
                   }
                 });
@@ -245,6 +249,7 @@ class _Survey11ScreenState extends State<Survey11Screen> {
                     option3 = false;
                   } else {
                     option3 = true;
+                    widget.answer[11] = 3;
                     option1 = option2 = option0 = false;
                   }
                 });
@@ -291,7 +296,9 @@ class _Survey11ScreenState extends State<Survey11Screen> {
               height: 7.5,
             ),
             GestureDetector(
-              onTap: () => Get.to(() => const Survey12Screen()),
+              onTap: () => Get.to(() => Survey12Screen(
+                    answer: widget.answer,
+                  )),
               child: Container(
                 width: 130,
                 height: 50,

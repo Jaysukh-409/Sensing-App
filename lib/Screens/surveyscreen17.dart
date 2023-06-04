@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:sensing_app/Screens/resultpage.dart';
+import 'package:sensing_app/functions/answerupload.dart';
 
 class Survey17Screen extends StatefulWidget {
-  const Survey17Screen({super.key});
+  List<int> answer;
+  Survey17Screen({required this.answer, super.key});
 
   @override
   State<Survey17Screen> createState() => _Survey17ScreenState();
@@ -15,6 +17,7 @@ class _Survey17ScreenState extends State<Survey17Screen> {
   bool option1 = false;
   bool option2 = false;
   bool option3 = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,6 +92,7 @@ class _Survey17ScreenState extends State<Survey17Screen> {
                     option0 = false;
                   } else {
                     option0 = true;
+                    widget.answer[17] = 0;
                     option1 = option2 = option3 = false;
                   }
                 });
@@ -141,6 +145,7 @@ class _Survey17ScreenState extends State<Survey17Screen> {
                     option1 = false;
                   } else {
                     option1 = true;
+                    widget.answer[17] = 1;
                     option0 = option2 = option3 = false;
                   }
                 });
@@ -193,6 +198,7 @@ class _Survey17ScreenState extends State<Survey17Screen> {
                     option2 = false;
                   } else {
                     option2 = true;
+                    widget.answer[17] = 2;
                     option1 = option0 = option3 = false;
                   }
                 });
@@ -245,6 +251,7 @@ class _Survey17ScreenState extends State<Survey17Screen> {
                     option3 = false;
                   } else {
                     option3 = true;
+                    widget.answer[17] = 3;
                     option1 = option2 = option0 = false;
                   }
                 });
@@ -291,7 +298,10 @@ class _Survey17ScreenState extends State<Survey17Screen> {
               height: 7.5,
             ),
             GestureDetector(
-              onTap: () => Get.to(() => const ResultScreen()),
+              onTap: () async => {
+                await addResponse(widget.answer),
+                Get.to(() => const ResultScreen()),
+              },
               child: Container(
                 width: 130,
                 height: 50,

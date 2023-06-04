@@ -4,7 +4,8 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:sensing_app/Screens/surveyscreen16.dart';
 
 class Survey15Screen extends StatefulWidget {
-  const Survey15Screen({super.key});
+  List<int> answer;
+  Survey15Screen({required this.answer, super.key});
 
   @override
   State<Survey15Screen> createState() => _Survey15ScreenState();
@@ -89,6 +90,7 @@ class _Survey15ScreenState extends State<Survey15Screen> {
                     option0 = false;
                   } else {
                     option0 = true;
+                    widget.answer[15] = 0;
                     option1 = option2 = option3 = false;
                   }
                 });
@@ -141,6 +143,7 @@ class _Survey15ScreenState extends State<Survey15Screen> {
                     option1 = false;
                   } else {
                     option1 = true;
+                    widget.answer[15] = 1;
                     option0 = option2 = option3 = false;
                   }
                 });
@@ -193,6 +196,7 @@ class _Survey15ScreenState extends State<Survey15Screen> {
                     option2 = false;
                   } else {
                     option2 = true;
+                    widget.answer[15] = 2;
                     option1 = option0 = option3 = false;
                   }
                 });
@@ -239,7 +243,9 @@ class _Survey15ScreenState extends State<Survey15Screen> {
               height: 7.5,
             ),
             GestureDetector(
-              onTap: () => Get.to(() => const Survey16Screen()),
+              onTap: () => Get.to(() => Survey16Screen(
+                    answer: widget.answer,
+                  )),
               child: Container(
                 width: 130,
                 height: 50,

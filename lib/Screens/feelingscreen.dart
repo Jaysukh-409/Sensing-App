@@ -13,7 +13,7 @@ class FeelingsScreen extends StatefulWidget {
 class _FeelingsScreenState extends State<FeelingsScreen> {
   bool good = false;
   bool tired = false;
-
+  List<int> answer = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   void logoutUser() async {
     AuthController().logout();
   }
@@ -51,6 +51,7 @@ class _FeelingsScreenState extends State<FeelingsScreen> {
                   good = false;
                 } else {
                   good = true;
+                  answer[0] = 1;
                   tired = false;
                 }
               });
@@ -98,6 +99,7 @@ class _FeelingsScreenState extends State<FeelingsScreen> {
                   tired = false;
                 } else {
                   tired = true;
+                  answer[0] = 1;
                   good = false;
                 }
               });
@@ -139,7 +141,9 @@ class _FeelingsScreenState extends State<FeelingsScreen> {
             height: 50,
           ),
           GestureDetector(
-            onTap: () => Get.to(() => const Survey1Screen()),
+            onTap: () => Get.to(() => Survey1Screen(
+                  answer: answer,
+                )),
             child: Container(
               width: 150,
               height: 150,

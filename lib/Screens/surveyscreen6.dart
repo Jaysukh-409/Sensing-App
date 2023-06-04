@@ -4,7 +4,8 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:sensing_app/Screens/surveyscreen7.dart';
 
 class Survey6Screen extends StatefulWidget {
-  const Survey6Screen({super.key});
+  List<int> answer;
+  Survey6Screen({required this.answer, super.key});
 
   @override
   State<Survey6Screen> createState() => _Survey6ScreenState();
@@ -90,6 +91,7 @@ class _Survey6ScreenState extends State<Survey6Screen> {
                     option0 = false;
                   } else {
                     option0 = true;
+                    widget.answer[6] = 0;
                     option1 = option2 = option3 = false;
                   }
                 });
@@ -142,6 +144,7 @@ class _Survey6ScreenState extends State<Survey6Screen> {
                     option1 = false;
                   } else {
                     option1 = true;
+                    widget.answer[6] = 1;
                     option0 = option2 = option3 = false;
                   }
                 });
@@ -194,6 +197,7 @@ class _Survey6ScreenState extends State<Survey6Screen> {
                     option2 = false;
                   } else {
                     option2 = true;
+                    widget.answer[6] = 2;
                     option1 = option0 = option3 = false;
                   }
                 });
@@ -246,6 +250,7 @@ class _Survey6ScreenState extends State<Survey6Screen> {
                     option3 = false;
                   } else {
                     option3 = true;
+                    widget.answer[6] = 3;
                     option1 = option2 = option0 = false;
                   }
                 });
@@ -292,7 +297,9 @@ class _Survey6ScreenState extends State<Survey6Screen> {
               height: 7.5,
             ),
             GestureDetector(
-              onTap: () => Get.to(() => const Survey7Screen()),
+              onTap: () => Get.to(() => Survey7Screen(
+                    answer: widget.answer,
+                  )),
               child: Container(
                 width: 130,
                 height: 50,
