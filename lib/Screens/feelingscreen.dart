@@ -141,9 +141,25 @@ class _FeelingsScreenState extends State<FeelingsScreen> {
             height: 50,
           ),
           GestureDetector(
-            onTap: () => Get.to(() => Survey1Screen(
-                  answer: answer,
-                )),
+            onTap: () => {
+              if (good || tired)
+                {
+                  Get.to(
+                    () => Survey1Screen(
+                      answer: answer,
+                    ),
+                  ),
+                }
+              else
+                {
+                  Get.snackbar(
+                    "Insufficient Input",
+                    "Please select any one option",
+                    snackPosition: SnackPosition.BOTTOM,
+                    colorText: Colors.white,
+                  ),
+                }
+            },
             child: Container(
               width: 150,
               height: 150,

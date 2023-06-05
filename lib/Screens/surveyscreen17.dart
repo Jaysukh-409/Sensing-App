@@ -299,8 +299,22 @@ class _Survey17ScreenState extends State<Survey17Screen> {
             ),
             GestureDetector(
               onTap: () async => {
-                await addResponse(widget.answer),
-                Get.to(() => const ResultScreen()),
+                if (option0 || option1 || option2 || option3)
+                  {
+                    await addResponse(widget.answer),
+                    Get.to(
+                      () => const ResultScreen(),
+                    ),
+                  }
+                else
+                  {
+                    Get.snackbar(
+                      "Insufficient Input",
+                      "Please select any one option",
+                      snackPosition: SnackPosition.BOTTOM,
+                      colorText: Colors.white,
+                    ),
+                  }
               },
               child: Container(
                 width: 130,

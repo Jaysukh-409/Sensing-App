@@ -34,9 +34,38 @@ class AuthController extends GetxController {
         await auth.signInWithEmailAndPassword(email: email, password: password);
       } else {
         // res = "Please Input Valid Credentials";
+        if (!email.isNotEmpty || !password.isNotEmpty) {
+          Get.snackbar(
+            "Login Failed",
+            "All fields should be filled.",
+            snackPosition: SnackPosition.BOTTOM,
+          );
+        } else if (!email.isEmail) {
+          Get.snackbar(
+            "Login Failed",
+            "Entered email isn't valid.",
+            snackPosition: SnackPosition.BOTTOM,
+          );
+        } else if (password.length < 6) {
+          Get.snackbar(
+            "Login Failed",
+            "Password length should be atleast 6.",
+            snackPosition: SnackPosition.BOTTOM,
+          );
+        } else {
+          Get.snackbar(
+            "Login Failed",
+            "Entered credentials isn't valid. Please check it.",
+            snackPosition: SnackPosition.BOTTOM,
+          );
+        }
       }
     } catch (e) {
-      // res = e.toString();
+      Get.snackbar(
+        "Login Failed",
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+      );
     }
   }
 
@@ -50,10 +79,38 @@ class AuthController extends GetxController {
         await auth.createUserWithEmailAndPassword(
             email: email, password: password);
       } else {
-        // res = "Please Input Valid Credentials";
+        if (!email.isNotEmpty || !password.isNotEmpty) {
+          Get.snackbar(
+            "Signup Failed",
+            "All fields should be filled.",
+            snackPosition: SnackPosition.BOTTOM,
+          );
+        } else if (!email.isEmail) {
+          Get.snackbar(
+            "Signup Failed",
+            "Entered email isn't valid.",
+            snackPosition: SnackPosition.BOTTOM,
+          );
+        } else if (password.length < 6) {
+          Get.snackbar(
+            "Signup Failed",
+            "Password length should be atleast 6.",
+            snackPosition: SnackPosition.BOTTOM,
+          );
+        } else {
+          Get.snackbar(
+            "Signup Failed",
+            "Entered credentials isn't valid. Please check it.",
+            snackPosition: SnackPosition.BOTTOM,
+          );
+        }
       }
     } catch (e) {
-      // res = e.toString();
+      Get.snackbar(
+        "Signup Failed",
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+      );
     }
   }
 

@@ -297,9 +297,25 @@ class _Survey5ScreenState extends State<Survey5Screen> {
               height: 7.5,
             ),
             GestureDetector(
-              onTap: () => Get.to(() => Survey6Screen(
-                    answer: widget.answer,
-                  )),
+              onTap: () => {
+                if (option0 || option1 || option2 || option3)
+                  {
+                    Get.to(
+                      () => Survey6Screen(
+                        answer: widget.answer,
+                      ),
+                    ),
+                  }
+                else
+                  {
+                    Get.snackbar(
+                      "Insufficient Input",
+                      "Please select any one option",
+                      snackPosition: SnackPosition.BOTTOM,
+                      colorText: Colors.white,
+                    ),
+                  }
+              },
               child: Container(
                 width: 130,
                 height: 50,
