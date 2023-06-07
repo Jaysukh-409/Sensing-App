@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sensing_app/Screens/surveyscreen1.dart';
+import 'package:sensing_app/Screens/surveyscreen.dart';
 import 'package:sensing_app/functions/loginsignup.dart';
 
 class FeelingsScreen extends StatefulWidget {
@@ -145,7 +145,7 @@ class _FeelingsScreenState extends State<FeelingsScreen> {
               if (good || tired)
                 {
                   Get.to(
-                    () => Survey1Screen(
+                    () => SurveyScreen(
                       answer: answer,
                     ),
                   ),

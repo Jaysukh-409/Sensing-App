@@ -15,6 +15,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final emailcontroller = TextEditingController();
   final passwordcontroller = TextEditingController();
+  bool isLoading = false;
 
   @override
   void dispose() {
@@ -24,8 +25,16 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void loginUser() async {
+    setState(() {
+      isLoading = true;
+    });
+
     await AuthController()
         .login(email: emailcontroller.text, password: passwordcontroller.text);
+
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -214,15 +223,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ],
                               ),
                             ),
-                            child: const Center(
-                              child: Text(
-                                "Login",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
+                            child: !isLoading
+                                ? const Center(
+                                    child: Text(
+                                      "Login",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  )
+                                : const Center(
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                    ),
+                                  ),
                           ),
                         ),
                       ],

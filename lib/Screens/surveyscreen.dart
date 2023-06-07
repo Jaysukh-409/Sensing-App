@@ -1,23 +1,62 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:sensing_app/Screens/surveyscreen15.dart';
+import 'package:sensing_app/Screens/resultpage.dart';
+import 'package:sensing_app/functions/answerupload.dart';
 
-class Survey14Screen extends StatefulWidget {
+class SurveyScreen extends StatefulWidget {
   List<int> answer;
-  Survey14Screen({required this.answer, super.key});
+  SurveyScreen({required this.answer, super.key});
 
   @override
-  State<Survey14Screen> createState() => _Survey14ScreenState();
+  State<SurveyScreen> createState() => _SurveyScreenState();
 }
 
-class _Survey14ScreenState extends State<Survey14Screen> {
+class _SurveyScreenState extends State<SurveyScreen> {
   bool option0 = false;
   bool option1 = false;
   bool option2 = false;
   bool option3 = false;
+  int currentQuestionIndex = 0;
+  List<QueryDocumentSnapshot> questions = [];
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance
+        .collection('questions')
+        .orderBy('Index')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      setState(() {
+        questions = querySnapshot.docs;
+      });
+    });
+  }
+
+  void nextQuestion() {
+    setState(() {
+      currentQuestionIndex++;
+      option0 = false;
+      option1 = false;
+      option2 = false;
+      option3 = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (questions.isEmpty) {
+      return const Center(
+        child: CircularProgressIndicator(
+          color: Colors.blue,
+        ),
+      );
+    }
+
+    final currentQuestion = questions[currentQuestionIndex];
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
@@ -30,19 +69,21 @@ class _Survey14ScreenState extends State<Survey14Screen> {
               color: const Color.fromARGB(255, 162, 175, 255).withOpacity(0.2),
               height: 50,
               width: MediaQuery.of(context).size.width,
-              child: const Center(
-                  child: Text(
-                "Increased Sleep",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontSize: 20,
+              child: Center(
+                child: Text(
+                  currentQuestion['Question_Text'],
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-              )),
+              ),
             ),
             LinearPercentIndicator(
               width: MediaQuery.of(context).size.width,
-              percent: 14 / 17,
+              percent: (currentQuestionIndex + 1) / questions.length,
               backgroundColor: Colors.lightBlueAccent[10],
               progressColor: Colors.blue,
             ),
@@ -69,10 +110,10 @@ class _Survey14ScreenState extends State<Survey14Screen> {
               ),
               width: MediaQuery.of(context).size.width,
               color: const Color.fromARGB(255, 162, 175, 255).withOpacity(0.2),
-              child: const Center(
+              child: Center(
                 child: Text(
-                  "Have you experienced that your sleep hours increased ?",
-                  style: TextStyle(
+                  currentQuestion['Question'],
+                  style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     color: Colors.white,
                   ),
@@ -90,7 +131,7 @@ class _Survey14ScreenState extends State<Survey14Screen> {
                     option0 = false;
                   } else {
                     option0 = true;
-                    widget.answer[14] = 0;
+                    widget.answer[currentQuestionIndex + 1] = 0;
                     option1 = option2 = option3 = false;
                   }
                 });
@@ -120,10 +161,10 @@ class _Survey14ScreenState extends State<Survey14Screen> {
                           .withOpacity(0.4),
                       borderRadius: BorderRadius.circular(7.5),
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Text(
-                        "I do not sleep more than usual.",
-                        style: TextStyle(
+                        currentQuestion['Option'][0],
+                        style: const TextStyle(
                           fontWeight: FontWeight.normal,
                           color: Colors.white,
                         ),
@@ -143,7 +184,7 @@ class _Survey14ScreenState extends State<Survey14Screen> {
                     option1 = false;
                   } else {
                     option1 = true;
-                    widget.answer[14] = 1;
+                    widget.answer[currentQuestionIndex + 1] = 1;
                     option0 = option2 = option3 = false;
                   }
                 });
@@ -173,10 +214,10 @@ class _Survey14ScreenState extends State<Survey14Screen> {
                           .withOpacity(0.4),
                       borderRadius: BorderRadius.circular(7.5),
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Text(
-                        "I sleep longer or deeper, but less than 2 hours more than usual, including naps during the day.",
-                        style: TextStyle(
+                        currentQuestion['Option'][1],
+                        style: const TextStyle(
                           fontWeight: FontWeight.normal,
                           color: Colors.white,
                         ),
@@ -196,7 +237,7 @@ class _Survey14ScreenState extends State<Survey14Screen> {
                     option2 = false;
                   } else {
                     option2 = true;
-                    widget.answer[14] = 2;
+                    widget.answer[currentQuestionIndex + 1] = 2;
                     option1 = option0 = option3 = false;
                   }
                 });
@@ -226,10 +267,10 @@ class _Survey14ScreenState extends State<Survey14Screen> {
                           .withOpacity(0.4),
                       borderRadius: BorderRadius.circular(7.5),
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Text(
-                        "I sleep longer or deeper. At least 2 hours more than usual, including naps.",
-                        style: TextStyle(
+                        currentQuestion['Option'][2],
+                        style: const TextStyle(
                           fontWeight: FontWeight.normal,
                           color: Colors.white,
                         ),
@@ -249,7 +290,7 @@ class _Survey14ScreenState extends State<Survey14Screen> {
                     option3 = false;
                   } else {
                     option3 = true;
-                    widget.answer[14] = 3;
+                    widget.answer[currentQuestionIndex + 1] = 3;
                     option1 = option2 = option0 = false;
                   }
                 });
@@ -279,10 +320,10 @@ class _Survey14ScreenState extends State<Survey14Screen> {
                           .withOpacity(0.4),
                       borderRadius: BorderRadius.circular(7.5),
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Text(
-                        "I sleep longer or deeper. At least 4 hours more than usual and in addition I need to take a nap during the day.",
-                        style: TextStyle(
+                        currentQuestion['Option'][3],
+                        style: const TextStyle(
                           fontWeight: FontWeight.normal,
                           color: Colors.white,
                         ),
@@ -296,14 +337,20 @@ class _Survey14ScreenState extends State<Survey14Screen> {
               height: 7.5,
             ),
             GestureDetector(
-              onTap: () => {
+              onTap: () async => {
                 if (option0 || option1 || option2 || option3)
                   {
-                    Get.to(
-                      () => Survey15Screen(
-                        answer: widget.answer,
-                      ),
-                    ),
+                    if (currentQuestionIndex == questions.length - 1)
+                      {
+                        await addResponse(widget.answer),
+                        Get.to(
+                          () => const ResultScreen(),
+                        ),
+                      }
+                    else
+                      {
+                        nextQuestion(),
+                      }
                   }
                 else
                   {
@@ -326,15 +373,24 @@ class _Survey14ScreenState extends State<Survey14Screen> {
                     colors: [Colors.black, Colors.blue, Colors.black],
                   ),
                 ),
-                child: const Center(
-                  child: Text(
-                    "Next",
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                child: Center(
+                  child: (currentQuestionIndex == questions.length - 1)
+                      ? const Text(
+                          "Submit",
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      : const Text(
+                          "Next",
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                 ),
               ),
             ),
