@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:sensing_app/Screens/gyro.dart';
 import 'package:sensing_app/Screens/resultpage.dart';
 import 'package:sensing_app/functions/answerupload.dart';
 
@@ -93,10 +94,10 @@ class _SurveyScreenState extends State<SurveyScreen> {
             Container(
               width: 200,
               height: 200,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.blue,
-                borderRadius: BorderRadius.circular(100),
               ),
+              child: const GyroSensor(),
             ),
             const SizedBox(
               height: 15,

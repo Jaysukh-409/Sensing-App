@@ -56,9 +56,9 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 33),
-              child: Center(
+              child: const Center(
                 child: Column(
-                  children: const <Widget>[
+                  children: <Widget>[
                     Text(
                       'Welcome to',
                       style: TextStyle(

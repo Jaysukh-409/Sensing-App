@@ -14,6 +14,7 @@ class _FeelingsScreenState extends State<FeelingsScreen> {
   bool good = false;
   bool tired = false;
   List<int> answer = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
   void logoutUser() async {
     AuthController().logout();
   }
