@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:sensing_app/Screens/gyro.dart';
+import 'package:sensing_app/functions/gyro.dart';
 import 'package:sensing_app/Screens/resultpage.dart';
 import 'package:sensing_app/functions/answerupload.dart';
 
