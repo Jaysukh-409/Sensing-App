@@ -1,12 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sensing_app/Screens/feelingscreen.dart';
+import 'package:sensing_app/Screens/homepage.dart';
 import 'package:sensing_app/Screens/loginscreen.dart';
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
   late Rx<User?> user;
   FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   void onReady() {
@@ -20,7 +22,13 @@ class AuthController extends GetxController {
     if (user == null) {
       Get.offAll(() => const LoginScreen());
     } else {
-      Get.offAll(() => const FeelingsScreen());
+      Get.offAll(
+        () => HomeScreen(
+          mfi: false,
+          psa: false,
+          pfs: false,
+        ),
+      );
     }
   }
 
@@ -69,17 +77,45 @@ class AuthController extends GetxController {
     }
   }
 
-  // Signup User
-  Future<void> signup({required String email, required String password}) async {
+  Future<void> register(
+      {required String email,
+      required String password,
+      required String username,
+      required String age,
+      required String height,
+      required String weight,
+      required String gender}) async {
     try {
       if (email.isNotEmpty &&
-          email.isEmail &&
           password.isNotEmpty &&
+          username.isNotEmpty &&
+          age.isNotEmpty &&
+          height.isNotEmpty &&
+          weight.isNotEmpty &&
+          gender.isNotEmpty &&
+          email.isEmail &&
           password.length >= 6) {
-        await auth.createUserWithEmailAndPassword(
+        // Register User
+        UserCredential cred = await auth.createUserWithEmailAndPassword(
             email: email, password: password);
+
+        // Adding Details in Database
+        await _firestore.collection('users').doc(cred.user!.uid).set({
+          'Email': email,
+          'Username': username,
+          'Age': age,
+          'Weight': weight,
+          'Height': height,
+          'Gender': gender,
+        });
       } else {
-        if (!email.isNotEmpty || !password.isNotEmpty) {
+        if (!email.isNotEmpty ||
+            !password.isNotEmpty ||
+            !username.isNotEmpty ||
+            !age.isNotEmpty ||
+            !height.isNotEmpty ||
+            !weight.isNotEmpty ||
+            !gender.isNotEmpty) {
           Get.snackbar(
             "Signup Failed",
             "All fields should be filled.",

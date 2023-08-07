@@ -15,6 +15,11 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final emailcontroller = TextEditingController();
   final passwordcontroller = TextEditingController();
+  final usernamecontroller = TextEditingController();
+  final agecontroller = TextEditingController();
+  final weightcontroller = TextEditingController();
+  final heightcontroller = TextEditingController();
+  final gendercontroller = TextEditingController();
   bool isLoading = false;
 
   @override
@@ -22,6 +27,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.dispose();
     emailcontroller.dispose();
     passwordcontroller.dispose();
+    usernamecontroller.dispose();
+    weightcontroller.dispose();
+    heightcontroller.dispose();
+    agecontroller.dispose();
+    gendercontroller.dispose();
   }
 
   void signupUser() async {
@@ -29,12 +39,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
       isLoading = true;
     });
 
-    await AuthController()
-        .signup(email: emailcontroller.text, password: passwordcontroller.text);
-
-    setState(() {
-      isLoading = false;
-    });
+    await AuthController().register(
+        email: emailcontroller.text,
+        password: passwordcontroller.text,
+        username: usernamecontroller.text,
+        age: agecontroller.text,
+        height: heightcontroller.text,
+        weight: weightcontroller.text,
+        gender: gendercontroller.text.toUpperCase());
+    if (mounted) {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -107,7 +124,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         blurRadius: 10,
                                         spreadRadius: 8,
                                         offset: const Offset(1, 1),
-                                        color: Colors.purpleAccent
+                                        color: Colors.greenAccent
                                             .withOpacity(0.35))
                                   ]),
                               child: TextField(
@@ -139,7 +156,210 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             const SizedBox(
                               height: 20,
                             ),
-                            // Password Field
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        blurRadius: 10,
+                                        spreadRadius: 8,
+                                        offset: const Offset(1, 1),
+                                        color: Colors.greenAccent
+                                            .withOpacity(0.35))
+                                  ]),
+                              child: TextField(
+                                controller: usernamecontroller,
+                                decoration: InputDecoration(
+                                    hintText: "Enter Username",
+                                    prefixIcon: const Icon(
+                                      CupertinoIcons.person_fill,
+                                      color: Colors.black,
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(25),
+                                        borderSide: const BorderSide(
+                                          width: 1.0,
+                                          color: Colors.white,
+                                        )),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(25),
+                                        borderSide: const BorderSide(
+                                          width: 1.0,
+                                          color: Colors.white,
+                                        )),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(25))),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        blurRadius: 10,
+                                        spreadRadius: 8,
+                                        offset: const Offset(1, 1),
+                                        color: Colors.greenAccent
+                                            .withOpacity(0.35))
+                                  ]),
+                              child: TextField(
+                                controller: agecontroller,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                    hintText: "Enter your Age",
+                                    prefixIcon: const Icon(
+                                      CupertinoIcons.add_circled_solid,
+                                      color: Colors.black,
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(25),
+                                        borderSide: const BorderSide(
+                                          width: 1.0,
+                                          color: Colors.white,
+                                        )),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(25),
+                                        borderSide: const BorderSide(
+                                          width: 1.0,
+                                          color: Colors.white,
+                                        )),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(25))),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        blurRadius: 10,
+                                        spreadRadius: 8,
+                                        offset: const Offset(1, 1),
+                                        color: Colors.greenAccent
+                                            .withOpacity(0.35))
+                                  ]),
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                controller: heightcontroller,
+                                decoration: InputDecoration(
+                                    hintText: "Enter your Height",
+                                    prefixIcon: const Icon(
+                                      CupertinoIcons.add_circled_solid,
+                                      color: Colors.black,
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(25),
+                                        borderSide: const BorderSide(
+                                          width: 1.0,
+                                          color: Colors.white,
+                                        )),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(25),
+                                        borderSide: const BorderSide(
+                                          width: 1.0,
+                                          color: Colors.white,
+                                        )),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(25))),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        blurRadius: 10,
+                                        spreadRadius: 8,
+                                        offset: const Offset(1, 1),
+                                        color: Colors.greenAccent
+                                            .withOpacity(0.35))
+                                  ]),
+                              child: TextField(
+                                controller: weightcontroller,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                    hintText: "Enter your Weight",
+                                    prefixIcon: const Icon(
+                                      CupertinoIcons.add_circled_solid,
+                                      color: Colors.black,
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(25),
+                                        borderSide: const BorderSide(
+                                          width: 1.0,
+                                          color: Colors.white,
+                                        )),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(25),
+                                        borderSide: const BorderSide(
+                                          width: 1.0,
+                                          color: Colors.white,
+                                        )),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(25))),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        blurRadius: 10,
+                                        spreadRadius: 8,
+                                        offset: const Offset(1, 1),
+                                        color: Colors.greenAccent
+                                            .withOpacity(0.35))
+                                  ]),
+                              child: TextField(
+                                controller: gendercontroller,
+                                decoration: InputDecoration(
+                                  hintText: "Gender : (Male,Female,Others)",
+                                  prefixIcon: const Icon(
+                                    CupertinoIcons.add_circled_solid,
+                                    color: Colors.black,
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                    borderSide: const BorderSide(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                    borderSide: const BorderSide(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             Container(
                               decoration: BoxDecoration(
                                   color: Colors.white,
@@ -157,7 +377,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 obscureText: true,
                                 decoration: InputDecoration(
                                     hintText: "Enter Password",
-                                    // labelText: "Password",
                                     prefixIcon: const Icon(
                                       CupertinoIcons.padlock_solid,
                                       color: Colors.black,
